@@ -1,0 +1,67 @@
+-
+  name: 验证login接口,获取Authorization鉴权码1
+  request:
+    method: post
+    url: http://localhost:8000/login/
+    headers: none
+    params: none
+    form_data:
+      username: hyy
+      password: 123456
+  validate: 200
+#-
+#  name: 验证login接口,获取Authorization鉴权码2
+#  request:
+#    method: post
+#    url: http://localhost:8000/login/
+#    headers: none
+#    params: none
+#    form_data:
+#      username: daxinzang
+#      password: 123
+#  validate: 200
+-
+  name: 验证login接口,username不存在
+  request:
+    method: post
+    url: http://localhost:8000/login/
+    headers: none
+    params: none
+    form_data:
+      username: hy
+      password: 123456
+  validate: 401
+-
+  name: 验证login接口,username必填
+  request:
+    method: post
+    url: http://localhost:8000/login/
+    headers: none
+    params: none
+    form_data:
+      username: ""
+      password: 123456
+  validate: 422
+-
+  name: 验证login接口,password必填
+  request:
+    method: post
+    url: http://localhost:8000/login/
+    headers: none
+    params: none
+    form_data:
+      username: hyy
+      password: ""
+  validate: 422
+-
+  name: 验证login接口,密码不正确
+  request:
+    method: post
+    url: http://localhost:8000/login/
+    headers: none
+    params: none
+    form_data:
+      username: hyy
+      password: 12345
+  validate: 401
+
