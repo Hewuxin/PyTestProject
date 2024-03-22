@@ -9,44 +9,47 @@
 
 ## 二、运行方式
 
-### 0.安装allure、allure-pytest
+### 安装allure、allure-pytest
 
 ```bash
 brew install allure
 pip install allure-pytest
 ```
 
-### 1. 收集报告
+### 收集测试数据
 
 pytest 测试模块/测试包/测试用例 --alluredir=指定存储测试结果的路径
 
 ```bash
 pytest --alluredir=./reports --clean-alluredir
-```
 
-生成在线的测试报告
-
-```bash
-allure serve ./results
+--alluredir=./reports  表示产生的json数据保存在./reports目录下
+--clean-alluredir      表示每次执行测试时都先清空文件夹
 ```
 
 ## 三、allure报告的生成
 
-- 在线报告，直接打开默认浏览器展示当前报告
+### 1. 在线报告，直接打开默认浏览器展示当前报告
 
-- 静态资源文件报告（带index.html、Css、js等文件），需要将报告布置到web服务器上。
+生成在线的测试报告 
 
-  1. 生成报告
+```bash
+allure serve ./reports
+```
 
-     ```basg
-     pytest --alluredir=./reports --clean-alluredir
-     ```
+### 2. 静态资源文件报告
 
-  2. 将测试报告生成到指定的目录
+（带index.html、Css、js等文件），需要将报告布置到web服务器上
 
-     ```
-     allure generate ./results --clean -o ./reports
-     ```
+将测试报告生成到指定的目录
+
+```bash
+allure generate ./results --clean -o ./reports
+
+--clean 每次生成前都先清理./reports目录
+./results 测试数据存放目录
+./reports allure生成的测试报告存放目录
+```
 
 ## 四、allure中装饰器
 
