@@ -64,4 +64,14 @@
       username: hyy
       password: 12345
   validate: 401
-
+-
+  name: 验证login接口,密码过短
+  request:
+    method: post
+    url: http://localhost:8000/login/
+    headers: none
+    params: none
+    form_data:
+      username: hyy
+      password: 123
+  validate: 422

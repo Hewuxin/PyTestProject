@@ -39,3 +39,14 @@ class TestApi:
         assert response.status_code == 200
         assert response.json()['user'] == 'hyy'
         assert response.json()['student_info'] == [1, 'daxinzang', 'man', 25, 'py_daxinzang@163.com']
+
+    @allure.title("获取学生列表功能")
+    def test_get_student_list(self):
+        url = "http://localhost:8000/student_list"
+
+        headers = read_yaml("headers")
+        response = SendRequest().all_send_request(method='get', url=url, headers=headers)
+
+        assert response.status_code == 200
+        assert response.json()['user'] == 'hyy'
+        assert len(response.json()['student_list']) == 5
