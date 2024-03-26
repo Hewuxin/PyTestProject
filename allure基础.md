@@ -59,9 +59,40 @@ allure generate ./results --clean -o ./reports
 
 #### a. 直接食用@allure.title为测试用例自定义标题
 
+```python
+@allure.title("身份验证")
+def test_authentication():
+    assert 1 == 1
+    print("身份验证成功")
+```
+
 #### b.@allure.title支持通过占位符的方式传递参数，可以实现测试用例标题参数化，动态生成测试用标题。
 
+```python
+@allure.title("参数化标题 参数P1:{p1},参数p2:{p2},参数p3:{p3}")
+@pytest.mark.parametrize("p1,p2,p3",[[1,2,3],[2,3,5]])
+def test_param_title(p1,p2,p3):
+    asster p1+p2 == p3
+```
+
 #### c.allure.dynamic.title动态更新测试用例标题
+
+```python
+@allure.title("原始标题")
+@pytest.mark.parametrize("p1",["参数化标题1","参数化标题2","参数化标题3"])
+def test_dynamic_param_title(p1):
+    assert True
+    allure.dynamic.title(p1)
+```
+
+#### d. 直接在函数中使用注释添加标题
+
+```python
+def test_dynamic_param_title():
+    """啊啊啊"""
+    assert True
+    allure.dynamic.title()
+```
 
 ### 2.allure报告中添加用例步骤
 
@@ -69,7 +100,138 @@ allure generate ./results --clean -o ./reports
 
 #### a.使用装饰器定义一个测试步骤，在测试用例中使用。
 
+```python
+# -*- coding: utf-8 -*-
+# @Time    : 2024/3/26 22:36
+# @Author  : heyuyang 
+# @Project : PyTestProject 
+# @File    : test_allure_step.py
+# @Desc    : 在allure报告中添加用例步骤
+
+import allure
+import pytest
+
+
+@allure.step
+def simple_step1(step_param1, step_param2=None):
+    """定义一个测试步骤step1"""
+    print(f"步骤1：打开页面,参数1：{step_param1},参数2：{step_param2}")
+
+
+@allure.step
+def simple_step2(step_param):
+    """定义一个另测试步骤"""
+    print(f"步骤1：完成搜索{step_param}功能")
+
+
+@allure.title("测试参数化")
+@pytest.mark.parametrize("param1", ["pytest", "allure"], ids=["search pytest", "search pytest"])
+def test_parametrize_wth_id(param1):
+    allure.dynamic.title(f"step 测试参数化：{param1}")
+    simple_step2(param1)
+
+```
+
+```python
+# 执行顺序："True,value1", "False,value1", "True,value2", "False,value2" 可知先执行param2在执行param1
+@pytest.mark.parametrize("param1", [True, False])
+@pytest.mark.parametrize("param2", ["value1", "value2"])
+def test_parametrize_with_two_params(param1, param2):
+    """测试step传入两个参数"""
+    simple_step1(param1, param2)
+```
+
+![image-20240326230131121](./images/step多参数.png)
+
+```python
+@allure.title("测试不止一个步骤")
+@pytest.mark.parametrize("param2", ["pytest", "unittest"])
+@pytest.mark.parametrize("param1,param3", [[1, 2]])
+def test_parametrize_with_uneven_value_sets(param1, param2, param3):
+    simple_step1(param1, param2)
+    simple_step2(param3)
+```
+
+```python
+@allure.step
+def simple_step1(step_param):
+    """定义一个测试步骤step1"""
+    print(f"步骤1：打开{step_param}页面")
+
+
+@allure.step
+def simple_step2(step_param1, step_param2=None):
+    """定义一个测试步骤step2"""
+    print(f"步骤2：传入参数：参数1：{step_param1},参数2：{step_param2}")
+
+
+@allure.step
+def simple_step3(step_param):
+    """定义一个测试步骤step3"""
+    print(f"步骤3：点击按钮{step_param}进行搜索")
+
+
+@allure.title("测试打开网页{param1}搜索关键字{param2}和{param3},最后点击按钮{param4}")
+@pytest.mark.parametrize("param1", ["www.baidu.com", "www.google.com"])
+@pytest.mark.parametrize(("param2", "param3"), [["pytest", "WebTesting"], ["pytest", "ApiTesting"],
+                                                ["unittest", "WebTesting"], ["unittest", "ApiTesting"]])
+@pytest.mark.parametrize("param4", ["btn1"])
+def test_three_steps(param1, param2, param3, param4):
+    simple_step1(param1)
+    simple_step2(param2, param3)
+    simple_step3(param4)
+```
+
+![image-20240326233715668](./images/step 多关参数多步骤.png)
+
 #### b.使用with allure.step()添加测试步骤。
+
+```python
+@allure.title("测试with allure.step添加测试步骤")
+@pytest.mark.parametrize("param1", ["www.baidu.com", "www.google.com"])
+@pytest.mark.parametrize(("param2", "param3"), [["pytest", "WebTesting"], ["pytest", "ApiTesting"],
+                                                ["unittest", "WebTesting"], ["unittest", "ApiTesting"]])
+@pytest.mark.parametrize("param4", ["btn1"])
+def test_with_allure_steps(param1, param2, param3, param4):
+    with allure.step(f"打开网页{param1}"):
+        simple_step1(param1)
+    with allure.step(f"搜索关键字{param2}和{param3}"):
+        simple_step2(param2, param3)
+    with allure.step(f"点击按钮{param4}"):
+        simple_step3(param4)
+```
+
+![image-20240326235400537](./images/setp with allure.step.png)
+
+```python
+def test_with_allure_step():
+    param1 = "www.baidu.com"
+    param2 = "pytest"
+    param3 = "WebTesting"
+    param4 = "btn1"
+    with allure.step(f"打开网页{param1}"):
+        assert 1 == 1
+    with allure.step(f"搜索关键字{param2}和{param3}"):
+        assert 1 == 1
+    with allure.step(f"点击按钮{param4}"):
+        assert 1 == 1
+ 
+@allure.title("测试with allure.step添加测试步骤")
+def test_with_allure_step2():
+    param1 = "www.google.com"
+    param2 = "unittest"
+    param3 = "ApiTesting"
+    param4 = "btn2"
+    with allure.step(f"打开网页{param1}"):
+        assert 1 == 1
+        print(f"步骤1：打开{param1}页面")
+    with allure.step(f"搜索关键字{param2}和{param3}"):
+        assert 1 == 1
+        print(f"步骤2：传入参数：参数1：{param2},参数2：{param3}")
+    with allure.step(f"点击按钮{param4}"):
+        assert 1 == 1
+        print(f"步骤3：点击按钮{param4}进行搜索")
+```
 
 ### 3.allure报告中添加用例连接
 

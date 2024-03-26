@@ -1,0 +1,17 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","TestApi","","","获取全部学生信息",""
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","","","","参数化标题2",""
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","","","","参数化标题1",""
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","","","","参数化用例标题:参数1:3,参数2:4",""
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","","","","test_after_clean",""
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","","","","test_before_clean",""
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","","","","test_title","
+    直接使用@allure.title装饰器
+    :return:
+    "
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","","","","参数化标题3",""
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","","","","身份验证",""
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","TestApi","","","登录功能",""
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","TestApi","","","test_get_student_info",""
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","1","testcases.test_allure","test_allure01","","","","参数化用例标题:参数1:1,参数2:2",""
+"passed","Tue Mar 26 22:22:35 CST 2024","Tue Mar 26 22:22:35 CST 2024","0","testcases.test_allure","test_allure01","TestApi","","","test_create_student",""
