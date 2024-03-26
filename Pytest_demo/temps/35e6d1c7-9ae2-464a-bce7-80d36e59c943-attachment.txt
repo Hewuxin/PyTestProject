@@ -1,3 +1,0 @@
-步骤1：打开www.baidu.com页面
-步骤2：传入参数：参数1：unittest,参数2：WebTesting
-步骤3：点击按钮btn1进行搜索
