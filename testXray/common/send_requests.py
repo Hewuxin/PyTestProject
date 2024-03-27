@@ -7,6 +7,13 @@ class SendRequest:
     session = requests.Session()
 
     def all_send_request(self, method, url, **kwargs):
+        """
+        可以使用不同的参数，驱动同一段代码
+        :param method:
+        :param url:
+        :param kwargs:
+        :return:
+        """
         print("--------------接口测试开始---------------")
 
         print("请求方式: %s" % method)
