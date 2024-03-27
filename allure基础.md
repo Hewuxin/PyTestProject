@@ -239,9 +239,54 @@ def test_with_allure_step2():
 
 #### a. @allure.link(ur, name)，添加一个普通的link连接，name:起别名
 
+```python
+@allure.title("测试添加链接")
+@allure.link("https://www.baidu.com", name="这是一个链接")
+@pytest.mark.parametrize("url", ["https://www.baidu.com", "https://www.sina.com.cn"])
+def test_add_link(url):
+    response = requests.get(url)
+    assert response.status_code == 200
+
+```
+
+![image-20240327104901437](./images/allure link.png)
+
 #### b. @allure.testcase(url, name)，添加一个用例管理系统链接。
 
+```python
+test_case_link = "https://www.baidu.com"
+
+
+@allure.title("测试添加用例管理系统链接")
+@allure.testcase(test_case_link, "case manager system")
+def test_case_manager():
+    pass
+
+
+@allure.title("测试添加用例管理系统链接{test_case_link1}")
+@allure.testcase("https://www.sina.com.cn", "case manager system")
+@pytest.mark.parametrize("test_case_link1", ["https://www.baidu.com", "https://www.sina.com.cn"])
+def test_case_manager_with_param(test_case_link1):
+    pass
+```
+
+![image-20240327105028308](./images/allure testcase.png)
+
 #### c. @allure.issue(url, name)，添加bug管理系统链接
+
+```python
+test_case_link = "https://www.baidu.com"
+
+@allure.title("测试添加缺陷链接")
+@allure.issue(test_case_link, "issue description")
+def test_with_issue():
+    with allure.step(f"Step 1:request url{test_case_link}"):
+        response = requests.get(test_case_link)
+    with allure.step(f"Step 2:assert status_code{response.status_code}"):
+        assert response.status_code == 200
+```
+
+![image-20240327105144035](./images/allure issure.png)
 
 ### 4.allure报告中添加用例分类
 
@@ -249,11 +294,187 @@ def test_with_allure_step2():
 
 报告展示：类别会展示在测试报告的Behaviors栏目下。
 
-#### a. 
+#### a.  @allure.epic: 敏捷里面的概念，定义史诗
 
-#### b.
+`应用场景：希望在报告中看到测试功能，子功能或场景`
 
-#### c.
+#### b. @allure.feature 功能点的描述，理解成模块往下是story
+
+`希望在报告中看到测试功能，子功能或场景`
+
+#### c. @allure.story 故事story是feature的子集
+
+```python
+import allure
+import pytest
+
+
+@pytest.fixture(scope="session", autouse=True)
+def user_authentication():
+    """
+    用户认证
+    """
+    yield
+    print("用户认证完成")
+
+
+@allure.epic("测试向用例报告中添加用例分类")
+@allure.feature("测试用户注册、登录功能")
+class TestAllureAddCaseClass:
+
+    def test_login(self):
+        """
+        测试登录功能
+        """
+        assert True
+
+    def test_register(self):
+        """
+        测试注册功能
+        """
+        assert True
+
+
+@allure.epic("测试向用例报告中添加用例分类")
+@allure.feature("测试用户信息管理功能")
+class TestAllureAddCaseClass1:
+    @allure.story("测试获取单个用户信息功能")
+    def test_get_single_user_info(self):
+        """
+        测试获取单个用户信息功能
+        """
+        assert True
+
+    @allure.story("测试获取所有用户信息功能")
+    def test_get_all_user_info(self):
+        """
+        测试获取所有用户信息功能
+        """
+        assert True
+
+    @allure.story("测试更新用户信息功能")
+    def test_update_user_info(self):
+        """
+        测试更新用户信息功能
+        """
+        assert True
+
+    @allure.story("测试删除用户功能")
+    def test_delete_user(self):
+        """
+        测试删除用户功能
+        """
+        assert True
+
+
+@allure.epic("需求1")
+@allure.feature("测试用户添加、编辑、删除功能")
+class TestAllureAddCaseClass2:
+
+    def test_add_user(self):
+        """
+        测试添加用户功能
+        """
+        assert True
+
+    def test_edit_user(self):
+        """
+        测试编辑用户功能
+        """
+        assert True
+
+    def test_delete_user(self):
+        """
+        测试删除用户功能
+        """
+        assert True
+
+
+@allure.epic("需求1")
+@allure.feature("测试产品管理功能")
+class TestAllureAddCaseClass3:
+    @allure.story("测试添加产品功能")
+    @allure.title("测试添加产品功能")
+    def test_add_product(self):
+        """
+        测试添加产品功能
+        """
+        assert True
+        print("添加成功")
+
+    @allure.story("测试编辑产品功能")
+    @allure.title("测试编辑产品功能")
+    def test_edit_product(self):
+        """
+        测试编辑产品功能
+        """
+        assert True
+        print("编辑成功")
+
+    @allure.story("测试更新产品状态功能")
+    @allure.title("测试更新产品状态功能")
+    def test_update_product_status(self):
+        """
+        测试更新产品状态功能
+        """
+        assert True
+        print("更新成功")
+
+    @allure.story("测试删除产品功能")
+    @allure.title("测试删除产品功能")
+    def test_delete_product(self):
+        """
+        测试删除产品功能
+        """
+        assert True
+        print("删除成功")
+```
+
+<img src="./images/allure epic.png" alt="image-20240327121737262" style="zoom: 25%;" />
+
+<img src="./images/allure feature story.png" alt="image-20240327122045980" style="zoom:25%;" />
+
+
+
+#### d. 运行特定类别的用例
+
+**1. 只运行epic名为"需求1"的测试用例**
+
+```bash
+pytest testcases/test_allure/test_allure_addCaseClass.py --alluredir=./temps --clean-alluredir --allure-epics=测试向用例报告中添加用例分类
+```
+
+**2. 只运行feature名为"测试产品管理功能"的测试用例**
+
+```bash
+pytest testcases/test_allure/test_allure_addCaseClass.py --alluredir=./temps --clean-alluredir --allure-features=测试产品管理功能
+```
+
+**3. 只运行story名为“测试添加产品功能”的测试用例**
+
+```bash
+pytest testcases/test_allure/test_allure_addCaseClass.py --alluredir=./temps --clean-alluredir --allure-strories=测试添加产品功能
+```
+
+**4. 只运行story名为“测试添加产品功能”和"测试编辑产品功能"的测试用例**
+
+```bash
+pytest testcases/test_allure/test_allure_addCaseClass.py --alluredir=./temps --clean-alluredir --allure-strories=测试添加产品功能,测试编辑产品功能 -vs
+```
+
+**5. 运行story名为“测试添加产品功能”和feature名为"测试用户添加、编辑、删除功能"的测试用例**
+
+```bash
+pytest testcases/test_allure/test_allure_addCaseClass.py --alluredir=./temps --clean-alluredir --allure-strories=测试添加产品功能 --allure-fatures=测试用户添加、编辑、删除功能 -vs
+```
+
+$\color{red}epic：相当于定义一个项目$
+
+$\color{red}feature：相当于一个功能模块，相当于testsuite，可以管理多个子分支story$
+
+$\color{red}story：相当于对应这个功能或者模块下的不同场景，分支功能$
+
+$\color{blue}epic与featrue和feature与story都类似于父子关系$
 
 ### 5. allure报告中添加用例描述
 
@@ -264,6 +485,30 @@ def test_with_allure_step2():
 #### b. @allure.description_html() 传递一段HTML文本来描述测试用例。
 
 #### c. 直接在测试用例方法中通过编写文档注释的方法来添加描述。会按照给定的格式展示，不需要添加\<br/>
+
+```python
+class TestAllureAddCaseClass3:
+    def test_add_product(self):
+        """
+        测试添加产品功能
+        """
+        assert True
+        print("添加成功")
+
+    def test_edit_product(self):
+        """
+        测试编辑产品功能
+        """
+        assert True
+        print("编辑成功")
+
+    def test_update_product_status(self):
+        """
+        测试更新产品状态功能
+        """
+        assert True
+        print("更新成功")
+```
 
 ### 6. allure报告中添加用例优先级
 

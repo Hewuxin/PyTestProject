@@ -2,7 +2,7 @@
 # @Time    : 2024/3/26 21:19
 # @Author  : heyuyang 
 # @Project : PyTestProject 
-# @File    : test_allure01.py
+# @File    : test_allure_title.py
 # @Desc    :  allure testcase practice1,实现给测试报告添加用例标题
 
 
@@ -21,7 +21,6 @@ def init_allure():
     print("执行后置清理")
 
 
-@allure.title("allure practice")
 class TestApi:
     """
     测试API接口

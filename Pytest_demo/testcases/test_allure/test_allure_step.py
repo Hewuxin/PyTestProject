@@ -27,27 +27,27 @@ def simple_step3(step_param):
     print(f"步骤3：点击按钮{step_param}进行搜索")
 
 
-# @allure.title("测试参数化")
-# @pytest.mark.parametrize("param1", ["pytest", "allure"])
-# def test_parametrize_wth_id(param1):
-#     allure.dynamic.title(f"step 测试参数化：{param1}")
-#     simple_step1(param1)
-#
-#
-# # 执行顺序："True,value1", "False,value1", "True,value2", "False,value2" 可知
-# @pytest.mark.parametrize("param1", [True, False])
-# @pytest.mark.parametrize("param2", ["value1", "value2"])
-# def test_parametrize_with_two_params(param1, param2):
-#     """测试step传入两个参数"""
-#     simple_step2(param1, param2)
-#
-#
-# @allure.title("测试不止一个步骤")
-# @pytest.mark.parametrize("param2", ["pytest", "unittest"])
-# @pytest.mark.parametrize("param1,param3", [[1, 2]])
-# def test_parametrize_with_uneven_value_sets(param1, param2, param3):
-#     simple_step1(param3)
-#     simple_step2(param1, param2)
+@allure.title("测试参数化")
+@pytest.mark.parametrize("param1", ["pytest", "allure"])
+def test_parametrize_wth_id(param1):
+    allure.dynamic.title(f"step 测试参数化：{param1}")
+    simple_step1(param1)
+
+
+# 执行顺序："True,value1", "False,value1", "True,value2", "False,value2" 可知
+@pytest.mark.parametrize("param1", [True, False])
+@pytest.mark.parametrize("param2", ["value1", "value2"])
+def test_parametrize_with_two_params(param1, param2):
+    """测试step传入两个参数"""
+    simple_step2(param1, param2)
+
+
+@allure.title("测试不止一个步骤")
+@pytest.mark.parametrize("param2", ["pytest", "unittest"])
+@pytest.mark.parametrize("param1,param3", [[1, 2]])
+def test_parametrize_with_uneven_value_sets(param1, param2, param3):
+    simple_step1(param3)
+    simple_step2(param1, param2)
 
 
 @allure.title("测试打开网页{param1}搜索关键字{param2}和{param3},最后点击按钮{param4}")
