@@ -54,7 +54,31 @@ sed -n '/2024-03-13/p' test.log 查找test.log中包含`2024-03-13`的行
 sed -n '/2024-03-10/,/2024-03-13/p' test.log 查找指定日期范围的日志行
 ```
 
-### 2. 
+### 2. 查看版本信息
+
+#### 1.使用`lsb_release`命令查看ubuntu版本信息
+
+```bash
+lsb_release -a
+```
+
+这将显示你的Ubuntu发行版的详细信息，包括发行版代号、发行版号、发行版名称等。
+
+#### 2. 使用cat命令查看/etc/issue文件
+
+```
+cat /etc/issue
+```
+
+#### 3. 使用cat命令查看/etc/os-release文件 **$\color{red}通用$**
+
+```
+cat /etc/os-release
+```
+
+这将显示包含操作系统信息的文本文件的内容，其中包括了发行版的名称、版本号等
+
+
 
 
 
