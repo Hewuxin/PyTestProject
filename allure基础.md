@@ -430,7 +430,9 @@ class TestAllureAddCaseClass3:
         print("删除成功")
 ```
 
-<img src="./images/allure epic.png" alt="image-20240327121737262" style="zoom: 25%;" />
+![epic](images/allure epic.png)
+
+
 
 <img src="./images/allure feature story.png" alt="image-20240327122045980" style="zoom:25%;" />
 
