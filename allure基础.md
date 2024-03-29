@@ -53,11 +53,11 @@ allure generate ./results --clean -o ./reports
 
 ## 四、allure中装饰器
 
-### 1.给测试报告添加用例标题
+### 1. 给测试报告添加用例标题
 
 @allure.title
 
-#### a. 直接食用@allure.title为测试用例自定义标题
+#### a.  直接使用@allure.title为测试用例自定义标题
 
 ```python
 @allure.title("身份验证")
@@ -66,7 +66,7 @@ def test_authentication():
     print("身份验证成功")
 ```
 
-#### b.@allure.title支持通过占位符的方式传递参数，可以实现测试用例标题参数化，动态生成测试用标题。
+#### b. @allure.title支持通过占位符的方式传递参数，可以实现测试用例标题参数化，动态生成测试用标题。
 
 ```python
 @allure.title("参数化标题 参数P1:{p1},参数p2:{p2},参数p3:{p3}")
@@ -75,7 +75,7 @@ def test_param_title(p1,p2,p3):
     asster p1+p2 == p3
 ```
 
-#### c.allure.dynamic.title动态更新测试用例标题
+#### c. allure.dynamic.title动态更新测试用例标题
 
 ```python
 @allure.title("原始标题")
@@ -94,11 +94,11 @@ def test_dynamic_param_title():
     allure.dynamic.title()
 ```
 
-### 2.allure报告中添加用例步骤
+### 2. allure报告中添加用例步骤
 
 应用场景：编写自动化测试用例时会遇到需要编写**流程性测试用例**的场景，一般流程性的测试用例的测试步骤比较多，在测试用例中添加详细的步骤会**提高测试用例的可阅读性**。
 
-#### a.使用装饰器定义一个测试步骤，在测试用例中使用。
+#### a. 使用装饰器定义一个测试步骤，在测试用例中使用。
 
 ```python
 # -*- coding: utf-8 -*-
@@ -141,7 +141,7 @@ def test_parametrize_with_two_params(param1, param2):
     simple_step1(param1, param2)
 ```
 
-![image-20240326230131121](./images/step多参数.png)
+![image-20240326230131121](./images/allure step多参数.png)
 
 ```python
 @allure.title("测试不止一个步骤")
@@ -182,7 +182,7 @@ def test_three_steps(param1, param2, param3, param4):
     simple_step3(param4)
 ```
 
-![image-20240326233715668](./images/step 多关参数多步骤.png)
+![image-20240326233715668](./images/allure step 多关参数多步骤.png)
 
 #### b.使用with allure.step()添加测试步骤。
 
@@ -201,7 +201,7 @@ def test_with_allure_steps(param1, param2, param3, param4):
         simple_step3(param4)
 ```
 
-![image-20240326235400537](./images/setp with allure.step.png)
+![image-20240326235400537](./images/allure setp with allure.step.png)
 
 ```python
 def test_with_allure_step():
