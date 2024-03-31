@@ -517,10 +517,114 @@ class TestAllureAddCaseClass3:
 Allure对严重级别的定义分为5个级别：
 
 - Blocker级别：中断缺陷(客户端程序无响应，无法执行下一步操作)
+
 - Critical级别：临界缺陷（功能点缺失）
+
 - Normal级别：普通缺陷（数值计算错误）
+
 - Minor级别：次要缺陷（界面错误与UI需求不符）
+
 - Trivial级别：轻微缺陷（必输项无提示，或者提示不规范。）
+
+  ```python
+  import allure
+  import pytst
+  
+  
+  @allure.epic("Class级别 severity测试")
+  class TestAllureSeverity:
+      @allure.feature("测试登录")
+      @allure.title("测试登录功能")
+      def test_login(self):
+          """
+          This test case will have severity as blocker in allure report
+          """
+          print("登录功能测试")
+          assert 1 == 1
+  
+      @allure.feature("测试不添加用例级别")
+      @allure.title("测试不添加用例级别")
+      def test_allure_without_severity(self):
+          """
+          This test case will not have severity in allure report
+          """
+          print("没有添加用例级别")
+  
+      @allure.feature("测试添加用例级别")
+      @allure.story("测试用例级别为trivial")
+      @allure.title("测试用例级别为trivial")
+      @allure.severity(allure.severity_level.TRIVIAL)
+      def test_allure_with_severity_trivial(self):
+          """
+          This test case will have severity as trivial in allure report
+          """
+          print("轻微缺陷，必输项无提示，或者提示不规范")
+          assert 1 == 1
+  
+      @allure.feature("测试添加用例级别")
+      @allure.story("测试用例级别为minor")
+      @allure.title("测试用例级别为minor")
+      @allure.severity(allure.severity_level.MINOR)
+      def test_allure_with_severity_minor(self):
+          """
+          This test case will have severity as minor in allure report
+          """
+          print("次要缺陷，提示信息不够明确，或者界面错误与UI需求不符")
+          assert 1 == 1
+  
+      @allure.feature("测试添加用例级别")
+      @allure.story("测试用例级别为normal")
+      @allure.title("测试用例级别为normal")
+      @allure.severity(allure.severity_level.NORMAL)
+      def test_allure_with_severity_normal(self):
+          """
+          This test case will have severity as normal in allure report
+          """
+          print("普通缺陷，数值计算错误")
+          assert 1 == 1
+  
+      @allure.feature("测试添加用例级别")
+      @allure.story("测试用例级别为critical")
+      @allure.title("测试用例级别为critical")
+      @allure.severity(allure.severity_level.CRITICAL)
+      def test_allure_with_severity_critical(self):
+          """
+          This test case will have severity as critical in allure report
+          """
+          print("临界缺陷，功能点缺失，或者系统崩溃")
+          assert 1 == 1
+  
+      @allure.feature("测试添加用例级别")
+      @allure.story("测试用例级别为blocker")
+      @allure.title("测试用例级别为blocker")
+      @allure.severity(allure.severity_level.BLOCKER)
+      def test_allure_with_severity_blocker(self):
+          """
+          This test case will have severity as blocker in allure report
+          """
+          print("严重缺陷，密码错误或者账号错误无法正常提醒，或者系统无法正常运行")
+          assert 1 == 1
+  
+      @allure.feature("测试核心功能流程")
+      @allure.severity(allure.severity_level.BLOCKER)
+      @allure.title("测试网页{param1}核心功能")
+      @pytest.mark.parametrize("param1", ["www.apple.com"])
+      @pytest.mark.parametrize(("param2", "param3"), [["airtest", "AppiumTesting"]])
+      @pytest.mark.parametrize("param4", ["btn1"])
+      def test_function_with_severity_blocker(self, param1, param2, param3, param4):
+          """
+          This test case will have severity as blocker in allure report
+          :return:
+          """
+          logging.info("严重缺陷，密码错误或者账号错误无法正常提醒，或者系统无法正常运行")
+          with allure.step(f"步骤1,打开网页{param1}"):
+              simple_step1(param1)
+  
+          with allure.step(f"步骤2,输入参数{param2},{param3}"):
+              simple_step2(param2, param3)
+          with allure.step(f"步骤3,点击{param4}"):
+              simple_step3(param4)
+  ```
 
 ### 7. allure报告中添加用例支持tags标签
 
