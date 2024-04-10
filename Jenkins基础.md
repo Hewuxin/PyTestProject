@@ -12,7 +12,34 @@
 
 ## Jenkins环境配置
 
-### 1.
+### 1. jenkins环境拉取
+
+```
+docker search jenkins
+docker pull jenkins/jenkins
+```
+
+### 2. 启动jenkins容器
+
+```bash
+docker run -d -uroot -p 9095:8000 -p 50000:50000 --name jenkins_demo -v /Users/heyuyang/Study/jenkins_home:/var/jenkins_home jenkins/jenkins
+    docker run -d 后台运行
+    -uroot 添加root权限
+    -P 9095:8000 将jenkins的8000端口映射到宿主机的9095端口
+    -p 50000:50000  将jenkins的50000端口映射到宿主机的50000端口
+    --name jenkins_demo 容器名称
+    -v /Users/heyuyang/Study/jenkins_home:/var/jenkins_home
+        /Users/heyuyang/Study/jenkins_home
+        /var/jenkins_home
+        将硬盘上的.../jenkins_home挂在到这个位置，方便后续更新镜像后继续使用原来的工作目录
+    jenkins/jenkins image镜像源
+```
+
+### 3.查看容器日志，获取初始密码
+
+`docker logs jenkins_demo`
+
+初始密码存放在jenkins容器的`/var/jenkins_home/secrets/initialAdminPassword`文件中
 
 ## Jenkins使用
 

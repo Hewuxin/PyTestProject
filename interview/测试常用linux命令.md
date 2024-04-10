@@ -130,3 +130,7 @@ cat /etc/os-release
 查找用户 "he" 正在运行的所有进程中，含有 "python" 关键字的行，并以长格式显示这些进程的详细信息
 
 ## 5.后台运行python脚本
+
+`nohup python train.py > run.log 2>&1 &`
+
+- 

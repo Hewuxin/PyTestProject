@@ -7,6 +7,8 @@ pytest_cache/
 temps/
 reports/
 
+*.txt
+email_token.yaml
 
 # Unit test / coverage reports
 htmlcov/

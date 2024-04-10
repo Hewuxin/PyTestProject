@@ -44,13 +44,13 @@
 3. 元素不可用，不可读，不可见
 4. 动态属性，动态的div层
 
-### id
+### 1. id
 
-### name
+### 2. name
 
-### class_name 不常用
+### 3. class_name 不常用
 
-### xpath
+### 4. xpath
 
 - 绝对路径 ： /开头是绝对路径
 
@@ -84,7 +84,7 @@
 
 ==coomand + f 查找标签==
 
-### css
+### 5. css
 
 - 绝对路径 不用
 - 通过ID和Class定位
@@ -93,11 +93,11 @@
 - 查询子元素定位
 - 查询兄弟节点定位
 
-### tage_name 不常用
+### 6. tage_name 不常用
 
-### link_text
+### 7. link_text
 
-### partail_link_text
+### 8. partail_link_text
 
 ## 鼠标悬停悬停操作
 
