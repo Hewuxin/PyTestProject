@@ -14,7 +14,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from common_utils import send_mail
+# from common_utils import send_mail
 
 
 def test_fetch_content(driver, novel_content_url):

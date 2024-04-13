@@ -40,6 +40,7 @@ def test_login_detect():
     ActionChains(driver).move_to_element(hover).perform()
     # 点击退出登录
     driver.find_element(By.XPATH, '/html/body/div[2]/div[1]/div/div[1]/div/ul/li[2]').click()
+
     time.sleep(1)
 
     # 点击切换颜色
@@ -138,6 +139,65 @@ def test_baidu_xuanting():
     action = webdriver.ActionChains(driver)
 
 
+class TestXray(object):
+    def init_driver(self, base_url):
+        self.driver = webdriver.Chrome()
+        self.driver.get(base_url)
+        time.sleep(1)
+
+        self.driver.maximize_window()
+
+        time.sleep(2)
+
+    def test_login(self):
+        time.sleep(2)
+
+        hover = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.XPATH,
+                                            '//div[@class="icon-user"]/*[name()="i"]/*[name()="svg"]'))
+        )
+
+        print(hover.text)
+        print("aaaaaaa")
+        # 实例化ActionChains类，调用鼠标操作，并使用perform()方法执行所有的鼠标动作
+        ActionChains(self.driver).move_to_element(hover).perform()
+        # 点击退出登录
+        self.driver.find_element(By.XPATH, '/html/body/div[2]/div[1]/div/div[1]/div/ul/li[2]').click()
+        time.sleep(1)
+
+        # 点击切换颜色
+        # 判断当前时间是否处于夜间，如果是，则点击切换到白天模式，否则点击切换到夜间模式
+        if time.localtime().tm_hour >= 18 or time.localtime().tm_hour < 6:
+            #                                  //*[@class='el-switch is-checked mt-2']
+            self.driver.find_element(By.XPATH, '/html/body/div[1]/div/div[1]/div[3]/div[3]/div').click()
+            time.sleep(1)
+
+        self.driver.find_element(By.XPATH, '/html/body/div[1]/div/div[1]/div[3]/div[1]/div[1]/button').click()
+
+        # 输入用户名和密码
+        self.driver.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/div/div/div/div[2]/div[2]/input').send_keys(
+            "1")
+        self.driver.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/div/div/div/div[2]/div[3]/input').send_keys(
+            "1")
+        time.sleep(5)
+        # 点击登录
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/div/div[2]/div/div/div/div[3]/div/button').click()
+
+    def test_logout(self):
+        pass
+
+    def test_detect(self):
+        pass
+
+    def select_detected_result(self):
+        pass
+
+
 if __name__ == '__main__':
     # test_baidu()
-    test_login_detect()
+    # test_login_detect()
+
+    test_xray = TestXray()
+    test_xray.init_driver("http://mataim.lntu.edu.cn/xray/")
+    test_xray.test_login()
+    test_xray.test_logout()
